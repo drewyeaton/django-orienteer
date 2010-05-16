@@ -61,3 +61,9 @@ for help with Compass related issues.
 
 At the moment, you can only use files with the 'sass' extension for the time 
 being. I'm still determining the most succinct way of handling SCSS files.
+
+
+##Acknowledgements
+
+Special thanks to Ash Christopher (ash@newthink.net) for providing the clever 
+Django Sass app which was the inspiration for this one.
