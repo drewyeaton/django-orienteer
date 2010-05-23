@@ -29,11 +29,11 @@ Finally, define where the compass binary is and how you want your CSS generated.
     COMPASS_BIN = '/usr/bin/compass'
     COMPASS_STYLE = 'compact'
 
-Next, in your template file you can reference your Sass files and the appropriate
+Next, in your template file you can reference your Sass file along with which media type(s) it is and the appropriate
 style tag will be generated.
 
     {% load orienteer %}
-    {% compass 'my_style' %}
+    {% compass 'my_style' 'screen, print' %}
 
 This will check your Compass project's 'src' directory for the 'my_style.sass' 
 file, compile it if necessary, and then output the following HTML tag:
@@ -55,12 +55,6 @@ for help with Compass related issues.
 
 - [Python](http://python.org/) (2.5 or greater, but not 3.x)
 - [Django](http://www.djangoproject.com/) (1.0 or greater)
-
-
-##Known Issues
-
-At the moment, you can only use files with the 'sass' extension for the time 
-being. I'm still determining the most succinct way of handling SCSS files.
 
 
 ##Acknowledgements

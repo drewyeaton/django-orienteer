@@ -15,7 +15,7 @@ CLASSIFIERS = [
 KEYWORDS = 'django sass compass css'
 
 setup(name='django-orienteer',
-    version='0.1',
+    version='0.2',
     description='Django Compass App',
     long_description=LONG_DESCRIPTION,
     author='Drew Yeaton',

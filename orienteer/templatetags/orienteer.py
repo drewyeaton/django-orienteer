@@ -17,7 +17,7 @@
 '''Simple Compass integration for Django'''
 
 __author__ = 'Drew Yeaton <drew@sentineldesign.net>'
-__version__ = '0.1'
+__version__ = '0.2'
 
 
 import os
@@ -30,36 +30,27 @@ from django.conf import settings
 register = template.Library()
 
 @register.simple_tag
-def compass(filename):
+def compass(filename, media):
+    import time
+    
     proj_dir = settings.COMPASS_PROJECT_DIR
-    src_dir = proj_dir + 'src/'
-    src_path = src_dir + filename + '.sass'
     output_dir = settings.COMPASS_OUTPUT_DIR
     output_url = settings.COMPASS_OUTPUT_URL
     
     needs_update = False
-    
-    # get timestamp of source file, if it doesn't exist then quit
-    try:
-        stat = os.stat(src_path)
-        src_file_ts = stat.st_mtime
-    except:
-        print "Compass source file '%s' not found! Not outputting CSS tag." % src_path
-        return ''
-    
+
     # get timestamp of css, if it doesn't exist we need to make it
     try:
         stat = os.stat(proj_dir + filename + '.css')
         output_file_ts = stat.st_mtime
     except:
-        needs_update = True
+        output_file_ts = '1'
     
-    css = "<link rel='stylesheet' href='%s?%s' type='text/css' />" % (output_url + filename + '.css', src_file_ts)
+    css = "<link rel='stylesheet' href='%s?%s' type='text/css' media='%s' />" % (output_url + filename + '.css', output_file_ts, media)
     
-    # check to see if source is newer than css
-    if not needs_update:
-        if src_file_ts <= output_file_ts:
-            return css
+    # if we aren't debugging (in production for example), short-cicuit this madness
+    if not settings.TEMPLATE_DEBUG:
+        return css
     
     cmd_dict = {
         'bin': settings.COMPASS_BIN, 
